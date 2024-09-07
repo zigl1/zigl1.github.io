@@ -21,7 +21,7 @@ repository               : "zigl1/zigl1.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "resized_500x300.png"
+  avatar           : "resized_proper_500x300.png"
   name             : "Ilgiz Khabibullin"
   pronouns         : "he/him"  
   bio              : "Cybersecurity Analyst, SOC Enthusiast"
