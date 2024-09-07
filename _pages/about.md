@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "👋Hello there, I'm Ilgiz!
+title: "👋Hello there, I'm Ilgiz!"
 author_profile: true
 redirect_from: 
   - /about/
