@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "👋Hello there, I'm Ilgiz! Cybersecurity Analyst | SOC Enthusiast | Cybersecurity Journey Advocate"
+title: "👋Hello there, I'm Ilgiz!
 author_profile: true
 redirect_from: 
   - /about/
