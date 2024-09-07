@@ -21,47 +21,24 @@ repository               : "zigl1/zigl1.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "images/photo_2024-01-03_20-53-32.jpg"
+  avatar           : "photo_2024-01-03_20-53-32.jpg"
   name             : "Ilgiz Khabibullin"
   pronouns         : "he/him"  
   bio              : "Cybersecurity Analyst, SOC Enthusiast"
-  location         : "Florida, USA"
+  location         : "Florida,Miami, USA"
   employer         : "CyberNowLabs"
-  uri              : # URL
   email            : "ilgiz7725@gmail.com" 
 
-  # Academic websites
-  arxiv            : # URL - Update with the correct link to your profile
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-  impactstory      : # URL
-  orcid            : "http://orcid.org/yourorcidurl"
-  semantic         : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  researchgate     : # URL
 
   # Repositories and software development
-  bitbucket        : # Username - Update with your username on the site
-  codepen          : # Username
-  dribbble         : # Username
-  github           : "academicpages"
-  kaggle           : # Username  
-  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
+  github           : "zigl1"
+   
 
   # Social media
  
   linkedin         : "ilgizqa"
   telegram         : "@ilgiz777"
   
-  
-
-# Publication Category - The following the list of publication categories and their headings
-publication_category:
-  books:
-    title: 'Books'
-  manuscripts:
-    title: 'Journal Articles'    
-  conferences:
-    title: 'Conference Papers'
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
