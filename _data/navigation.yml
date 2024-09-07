@@ -6,22 +6,12 @@
 
 main:
   - title: "Resume"
-    url: /files/
+    url: /files/Ilgiz_Khabibullin_resume_best3.pdf
 
-  - title: "Talks"
-    url: /talks/    
-
-  - title: "Teaching"
-    url: /teaching/    
-    
-  - title: "Portfolio"
-    url: /portfolio/
+  - title: "Projects"
+    url: /portfolio/    
         
   - title: "Blog Posts"
     url: /year-archive/
     
-  - title: "CV"
-    url: /cv/
-    
-  - title: "Guide"
-    url: /markdown/
+
