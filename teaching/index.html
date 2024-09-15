@@ -4,18 +4,19 @@
 <meta charset="UTF-8">
 <title>Cyber Defense Snake</title>
 <style>
-    body {
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
         background-color: #0d0d0d;
         color: #00ff00;
         font-family: 'Courier New', monospace;
-        margin: 0;
-        overflow: hidden;
     }
     #gameCanvas {
-        background-color: #1a1a1a;
         display: block;
-        margin: 0 auto;
-        border: 2px solid #00ff00;
+        margin: 0;
+        padding: 0;
+        background-color: #1a1a1a;
     }
     #overlay {
         position: absolute;
@@ -41,22 +42,44 @@
         left: 10px;
         color: #00ff00;
         font-size: 20px;
+        z-index: 2;
+    }
+    #watermark {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: #00ff00;
+        font-size: 14px;
+        z-index: 2;
+        opacity: 0.5;
     }
 </style>
 </head>
 <body>
-<canvas id="gameCanvas" width="800" height="600"></canvas>
+<canvas id="gameCanvas"></canvas>
 <div id="overlay">
     <h1>Cyber Defense Snake</h1>
     <p>Press SPACE to Start</p>
 </div>
 <div id="score">Score: 0</div>
+<div id="watermark">Built by Ilgiz Khabibullin using AI o1</div>
 <script>
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
+
+    // Make the canvas full screen
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        tileCountX = Math.floor(canvas.width / gridSize);
+        tileCountY = Math.floor(canvas.height / gridSize);
+    }
+    window.addEventListener('resize', resizeCanvas);
+
     const gridSize = 20;
-    const tileCountX = canvas.width / gridSize;
-    const tileCountY = canvas.height / gridSize;
+    let tileCountX;
+    let tileCountY;
+    resizeCanvas();
 
     let snake = [];
     let snakeLength = 5;
@@ -73,22 +96,27 @@
     let invincible = false;
     let invincibleTimer = 0;
 
+    // Coordinates to spell "HIRE ME"
     const HIRE_ME = [
-        { x: 10, y: 5 },
-        { x: 10, y: 6 },
-        { x: 10, y: 7 },
-        { x: 10, y: 8 },
-        { x: 10, y: 9 },
-        { x: 11, y: 9 },
-        { x: 12, y: 9 },
-        { x: 13, y: 9 },
-        { x: 14, y: 9 },
-        { x: 15, y: 9 },
-        { x: 15, y: 8 },
-        { x: 15, y: 7 },
-        { x: 15, y: 6 },
-        { x: 15, y: 5 },
-        // Add more coordinates to spell "HIRE ME"
+        // H
+        { x: 5, y: 5 }, { x: 5, y: 6 }, { x: 5, y: 7 }, { x: 5, y: 8 }, { x: 5, y: 9 },
+        { x: 7, y: 5 }, { x: 7, y: 6 }, { x: 7, y: 7 }, { x: 7, y: 8 }, { x: 7, y: 9 },
+        { x: 6, y: 7 },
+        // I
+        { x: 9, y: 5 }, { x: 9, y: 6 }, { x: 9, y: 7 }, { x: 9, y: 8 }, { x: 9, y: 9 },
+        // R
+        { x: 11, y: 5 }, { x: 11, y: 6 }, { x: 11, y: 7 }, { x: 11, y: 8 }, { x: 11, y: 9 },
+        { x: 12, y: 5 }, { x: 13, y: 5 }, { x: 13, y: 6 }, { x: 12, y: 7 }, { x: 13, y: 8 }, { x: 14, y: 9 },
+        // E
+        { x: 16, y: 5 }, { x: 16, y: 6 }, { x: 16, y: 7 }, { x: 16, y: 8 }, { x: 16, y: 9 },
+        { x: 17, y: 5 }, { x: 18, y: 5 }, { x: 17, y: 7 }, { x: 18, y: 7 }, { x: 17, y: 9 }, { x: 18, y: 9 },
+        // M
+        { x: 20, y: 5 }, { x: 20, y: 6 }, { x: 20, y: 7 }, { x: 20, y: 8 }, { x: 20, y: 9 },
+        { x: 21, y: 6 }, { x: 22, y: 7 }, { x: 23, y: 6 },
+        { x: 24, y: 5 }, { x: 24, y: 6 }, { x: 24, y: 7 }, { x: 24, y: 8 }, { x: 24, y: 9 },
+        // E
+        { x: 26, y: 5 }, { x: 26, y: 6 }, { x: 26, y: 7 }, { x: 26, y: 8 }, { x: 26, y: 9 },
+        { x: 27, y: 5 }, { x: 28, y: 5 }, { x: 27, y: 7 }, { x: 28, y: 7 }, { x: 27, y: 9 }, { x: 28, y: 9 },
     ];
 
     document.addEventListener('keydown', keyPush);
@@ -146,234 +174,4 @@
                 if (snakeDirection !== 'd') snakeDirection = 'a';
                 break;
             case 's':
-                if (snakeDirection !== 'w') snakeDirection = 's';
-                break;
-            case 'd':
-                if (snakeDirection !== 'a') snakeDirection = 'd';
-                break;
-        }
-    }
-
-    function gameLoop() {
-        // Move Snake
-        let head = { ...snake[0] };
-        switch (snakeDirection) {
-            case 'w':
-                head.y -= 1;
-                break;
-            case 'a':
-                head.x -= 1;
-                break;
-            case 's':
-                head.y += 1;
-                break;
-            case 'd':
-                head.x += 1;
-                break;
-            default:
-                return;
-        }
-
-        // Wall Collision
-        if (head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY) {
-            gameOver();
-            return;
-        }
-
-        // Self Collision
-        if (!invincible) {
-            for (let part of snake) {
-                if (head.x === part.x && head.y === part.y) {
-                    gameOver();
-                    return;
-                }
-            }
-        }
-
-        // HIRE ME Obstacles
-        for (let obstacle of HIRE_ME) {
-            if (head.x === obstacle.x && head.y === obstacle.y) {
-                if (!invincible) {
-                    gameOver();
-                    return;
-                }
-            }
-        }
-
-        // Threat Collision
-        for (let i = 0; i < threats.length; i++) {
-            if (head.x === threats[i].x && head.y === threats[i].y) {
-                if (invincible) {
-                    threats.splice(i, 1);
-                    score += 5;
-                    document.getElementById('score').innerText = 'Score: ' + score;
-                } else {
-                    gameOver();
-                    return;
-                }
-            }
-        }
-
-        // Ransomware Blockers
-        for (let blocker of ransomwareBlockers) {
-            if (head.x === blocker.x && head.y === blocker.y) {
-                if (!ransomwareKey) {
-                    gameOver();
-                    return;
-                } else {
-                    ransomwareBlockers = [];
-                    ransomwareKey = null;
-                }
-            }
-        }
-
-        // Food Collision
-        if (head.x === food.x && head.y === food.y) {
-            snakeLength++;
-            score += phishing ? -5 : 10;
-            document.getElementById('score').innerText = 'Score: ' + score;
-            placeFood();
-            phishing = false;
-
-            // Occasionally add a threat
-            if (Math.random() < 0.3) {
-                placeThreat();
-            }
-
-            // Occasionally add a ransomware blocker
-            if (Math.random() < 0.1 && ransomwareBlockers.length === 0) {
-                placeRansomwareBlocker();
-            }
-
-            // Occasionally place a security token
-            if (Math.random() < 0.2 && !securityToken) {
-                placeSecurityToken();
-            }
-
-            // Occasionally place a ransomware key
-            if (Math.random() < 0.1 && !ransomwareKey) {
-                placeRansomwareKey();
-            }
-        }
-
-        // Security Token Collision
-        if (securityToken && head.x === securityToken.x && head.y === securityToken.y) {
-            invincible = true;
-            invincibleTimer = 100;
-            securityToken = null;
-        }
-
-        // Ransomware Key Collision
-        if (ransomwareKey && head.x === ransomwareKey.x && head.y === ransomwareKey.y) {
-            ransomwareKey = true;
-        }
-
-        snake.unshift(head);
-        while (snake.length > snakeLength) {
-            snake.pop();
-        }
-
-        // Decrease invincibility timer
-        if (invincible) {
-            invincibleTimer--;
-            if (invincibleTimer <= 0) {
-                invincible = false;
-            }
-        }
-
-        drawGame();
-    }
-
-    function drawGame() {
-        ctx.fillStyle = '#1a1a1a';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // Draw Snake
-        ctx.fillStyle = invincible ? '#ffff00' : '#00ff00';
-        for (let part of snake) {
-            ctx.fillRect(part.x * gridSize, part.y * gridSize, gridSize - 2, gridSize - 2);
-        }
-
-        // Draw Food
-        ctx.fillStyle = phishing ? '#ff00ff' : '#ff0000';
-        ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 2, gridSize - 2);
-
-        // Draw Threats
-        ctx.fillStyle = '#ffffff';
-        for (let threat of threats) {
-            ctx.fillRect(threat.x * gridSize, threat.y * gridSize, gridSize - 2, gridSize - 2);
-        }
-
-        // Draw Security Token
-        if (securityToken) {
-            ctx.fillStyle = '#00ffff';
-            ctx.fillRect(securityToken.x * gridSize, securityToken.y * gridSize, gridSize - 2, gridSize - 2);
-        }
-
-        // Draw Ransomware Blockers
-        ctx.fillStyle = '#ff9900';
-        for (let blocker of ransomwareBlockers) {
-            ctx.fillRect(blocker.x * gridSize, blocker.y * gridSize, gridSize - 2, gridSize - 2);
-        }
-
-        // Draw Ransomware Key
-        if (ransomwareKey) {
-            ctx.fillStyle = '#ff66ff';
-            ctx.fillRect(ransomwareKey.x * gridSize, ransomwareKey.y * gridSize, gridSize - 2, gridSize - 2);
-        }
-
-        // Draw HIRE ME Obstacles
-        ctx.fillStyle = '#ff0066';
-        for (let obstacle of HIRE_ME) {
-            ctx.fillRect(obstacle.x * gridSize, obstacle.y * gridSize, gridSize - 2, gridSize - 2);
-        }
-    }
-
-    function placeFood() {
-        food = {
-            x: Math.floor(Math.random() * tileCountX),
-            y: Math.floor(Math.random() * tileCountY)
-        };
-        // Avoid placing food on the snake
-        for (let part of snake) {
-            if (food.x === part.x && food.y === part.y) {
-                placeFood();
-                return;
-            }
-        }
-        // Random chance of being a phishing attack
-        phishing = Math.random() < 0.2;
-    }
-
-    function placeThreat() {
-        let threat = {
-            x: Math.floor(Math.random() * tileCountX),
-            y: Math.floor(Math.random() * tileCountY)
-        };
-        threats.push(threat);
-    }
-
-    function placeSecurityToken() {
-        securityToken = {
-            x: Math.floor(Math.random() * tileCountX),
-            y: Math.floor(Math.random() * tileCountY)
-        };
-    }
-
-    function placeRansomwareBlocker() {
-        let blocker = {
-            x: Math.floor(Math.random() * tileCountX),
-            y: Math.floor(Math.random() * tileCountY)
-        };
-        ransomwareBlockers.push(blocker);
-    }
-
-    function placeRansomwareKey() {
-        ransomwareKey = {
-            x: Math.floor(Math.random() * tileCountX),
-            y: Math.floor(Math.random() * tileCountY)
-        };
-    }
-</script>
-</body>
-</html>
+                if (snakeDirection !== 'w') snak
