@@ -32,6 +32,7 @@
         flex-direction: column;
         font-size: 24px;
         z-index: 1;
+        text-align: center;
     }
     #overlay.hidden {
         display: none;
@@ -67,19 +68,9 @@
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Make the canvas full screen
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        tileCountX = Math.floor(canvas.width / gridSize);
-        tileCountY = Math.floor(canvas.height / gridSize);
-    }
-    window.addEventListener('resize', resizeCanvas);
-
     const gridSize = 20;
     let tileCountX;
     let tileCountY;
-    resizeCanvas();
 
     let snake = [];
     let snakeLength = 5;
@@ -96,28 +87,89 @@
     let invincible = false;
     let invincibleTimer = 0;
 
-    // Coordinates to spell "HIRE ME"
-    const HIRE_ME = [
-        // H
-        { x: 5, y: 5 }, { x: 5, y: 6 }, { x: 5, y: 7 }, { x: 5, y: 8 }, { x: 5, y: 9 },
-        { x: 7, y: 5 }, { x: 7, y: 6 }, { x: 7, y: 7 }, { x: 7, y: 8 }, { x: 7, y: 9 },
-        { x: 6, y: 7 },
-        // I
-        { x: 9, y: 5 }, { x: 9, y: 6 }, { x: 9, y: 7 }, { x: 9, y: 8 }, { x: 9, y: 9 },
-        // R
-        { x: 11, y: 5 }, { x: 11, y: 6 }, { x: 11, y: 7 }, { x: 11, y: 8 }, { x: 11, y: 9 },
-        { x: 12, y: 5 }, { x: 13, y: 5 }, { x: 13, y: 6 }, { x: 12, y: 7 }, { x: 13, y: 8 }, { x: 14, y: 9 },
-        // E
-        { x: 16, y: 5 }, { x: 16, y: 6 }, { x: 16, y: 7 }, { x: 16, y: 8 }, { x: 16, y: 9 },
-        { x: 17, y: 5 }, { x: 18, y: 5 }, { x: 17, y: 7 }, { x: 18, y: 7 }, { x: 17, y: 9 }, { x: 18, y: 9 },
-        // M
-        { x: 20, y: 5 }, { x: 20, y: 6 }, { x: 20, y: 7 }, { x: 20, y: 8 }, { x: 20, y: 9 },
-        { x: 21, y: 6 }, { x: 22, y: 7 }, { x: 23, y: 6 },
-        { x: 24, y: 5 }, { x: 24, y: 6 }, { x: 24, y: 7 }, { x: 24, y: 8 }, { x: 24, y: 9 },
-        // E
-        { x: 26, y: 5 }, { x: 26, y: 6 }, { x: 26, y: 7 }, { x: 26, y: 8 }, { x: 26, y: 9 },
-        { x: 27, y: 5 }, { x: 28, y: 5 }, { x: 27, y: 7 }, { x: 28, y: 7 }, { x: 27, y: 9 }, { x: 28, y: 9 },
-    ];
+    let HIRE_ME = [];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        tileCountX = Math.floor(canvas.width / gridSize);
+        tileCountY = Math.floor(canvas.height / gridSize);
+        generateHireMeObstacles();
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function generateHireMeObstacles() {
+        HIRE_ME = [];
+
+        // Define letters using relative coordinates
+        const letters = {
+            H: [
+                { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 }, { x: 0, y: 4 },
+                { x: 2, y: 0 }, { x: 2, y: 1 }, { x: 2, y: 2 }, { x: 2, y: 3 }, { x: 2, y: 4 },
+                { x: 1, y: 2 }
+            ],
+            I: [
+                { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 }, { x: 0, y: 4 }
+            ],
+            R: [
+                { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 }, { x: 0, y: 4 },
+                { x: 1, y: 0 }, { x: 2, y: 0 }, { x: 2, y: 1 }, { x: 1, y: 2 }, { x: 2, y: 3 }, { x: 2, y: 4 }
+            ],
+            E: [
+                { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 }, { x: 0, y: 4 },
+                { x: 1, y: 0 }, { x: 2, y: 0 }, { x: 1, y: 2 }, { x: 2, y: 2 }, { x: 1, y: 4 }, { x: 2, y: 4 }
+            ],
+            M: [
+                { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 }, { x: 0, y: 4 },
+                { x: 1, y: 1 }, { x: 2, y: 2 }, { x: 3, y: 1 },
+                { x: 4, y: 0 }, { x: 4, y: 1 }, { x: 4, y: 2 }, { x: 4, y: 3 }, { x: 4, y: 4 }
+            ]
+        };
+
+        // Calculate total width of "HIRE ME"
+        const letterWidths = {
+            H: 3,
+            I: 1,
+            R: 3,
+            E: 3,
+            M: 5
+        };
+
+        // Total width calculation: H + space + I + space + R + space + E + space*3 + M + space + E
+        const totalWidth =
+            letterWidths.H + 1 +
+            letterWidths.I + 1 +
+            letterWidths.R + 1 +
+            letterWidths.E + 3 +
+            letterWidths.M + 1 +
+            letterWidths.E;
+
+        // Starting positions to center the text
+        let startX = Math.floor((tileCountX - totalWidth) / 2);
+        let startY = Math.floor(tileCountY / 2) - 2; // Adjusted for letter height (5 tiles)
+
+        let x = startX;
+
+        // Place letters "H", "I", "R", "E"
+        ['H', 'I', 'R', 'E'].forEach(letter => {
+            letters[letter].forEach(pos => {
+                HIRE_ME.push({ x: x + pos.x, y: startY + pos.y });
+            });
+            x += letterWidths[letter] + 1; // Move x position: width of letter + space
+        });
+
+        // Add extra space between "HIRE" and "ME"
+        x += 2; // Additional spacing
+
+        // Place letters "M", "E"
+        ['M', 'E'].forEach(letter => {
+            letters[letter].forEach(pos => {
+                HIRE_ME.push({ x: x + pos.x, y: startY + pos.y });
+            });
+            x += letterWidths[letter] + 1; // Move x position: width of letter + space
+        });
+    }
 
     document.addEventListener('keydown', keyPush);
     document.addEventListener('keydown', function (e) {
@@ -388,6 +440,13 @@
             x: Math.floor(Math.random() * tileCountX),
             y: Math.floor(Math.random() * tileCountY)
         };
+        // Ensure threats don't appear on obstacles
+        for (let obstacle of HIRE_ME) {
+            if (threat.x === obstacle.x && threat.y === obstacle.y) {
+                placeThreat();
+                return;
+            }
+        }
         threats.push(threat);
     }
 
@@ -396,6 +455,13 @@
             x: Math.floor(Math.random() * tileCountX),
             y: Math.floor(Math.random() * tileCountY)
         };
+        // Ensure security tokens don't appear on obstacles
+        for (let obstacle of HIRE_ME) {
+            if (securityToken.x === obstacle.x && securityToken.y === obstacle.y) {
+                placeSecurityToken();
+                return;
+            }
+        }
     }
 
     function placeRansomwareBlocker() {
@@ -403,6 +469,13 @@
             x: Math.floor(Math.random() * tileCountX),
             y: Math.floor(Math.random() * tileCountY)
         };
+        // Ensure blockers don't appear on obstacles
+        for (let obstacle of HIRE_ME) {
+            if (blocker.x === obstacle.x && blocker.y === obstacle.y) {
+                placeRansomwareBlocker();
+                return;
+            }
+        }
         ransomwareBlockers.push(blocker);
     }
 
@@ -411,6 +484,13 @@
             x: Math.floor(Math.random() * tileCountX),
             y: Math.floor(Math.random() * tileCountY)
         };
+        // Ensure the key doesn't appear on obstacles
+        for (let obstacle of HIRE_ME) {
+            if (ransomwareKey.x === obstacle.x && ransomwareKey.y === obstacle.y) {
+                placeRansomwareKey();
+                return;
+            }
+        }
     }
 </script>
 </body>
