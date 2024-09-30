@@ -7,53 +7,35 @@ redirect_from:
   - /about.html
 ---
 
-👋 Hello, I'm Ilgiz Khabibullin
-Cybersecurity Analyst | SOC Enthusiast | Cybersecurity Journey Advocate
+👋 Hello! I’m Ilgiz Khabibullin, but everybody calls me Habib :) Cybersecurity Analyst with a Passion for SOC Environments, Threat Detection, and Military Discipline.
 
-Welcome to my digital space where cybersecurity meets passion and relentless pursuit of knowledge. This site is a testament to my journey in the ever-evolving world of cybersecurity. Here, you’ll discover my ongoing projects, certifications, and everything I’m working on to stay ahead in the battle for digital security.
+Welcome to my world of cybersecurity! I’m someone who thrives on learning and innovation, especially in protecting digital ecosystems from the ever-growing landscape of cyber threats. My journey in this field has been driven by curiosity, dedication, and a desire to continually evolve alongside the industry.
 
-🛡️ My Mission: Safeguarding the Digital World
-As a cybersecurity analyst, my focus is on threat detection, incident response, and implementing strategies to protect infrastructures from malicious attacks. With experience in SOC environments and hands-on expertise in tools like Splunk, IBM QRadar, and the ELK stack, I aim to ensure robust protection for digital ecosystems.
+A Lifelong Commitment to Cybersecurity
+From my early days of learning the basics of network security to working hands-on in SOC environments, I’ve immersed myself in the tools and technologies that help defend against modern threats. Each day presents a new challenge, and that’s what excites me—staying ahead of attackers by refining my skills in threat detection, incident response, and digital defense strategies.
 
-In the constantly shifting landscape of cyber threats, I am driven by the challenge to stay ahead of the curve—constantly learning, testing, and refining strategies to keep organizations secure.
+My background in the military, where I served as a Transportation Specialist (MOS 88M) in the Army National Guard, has equipped me with a strong sense of discipline, teamwork, and the ability to stay calm under pressure. These traits are invaluable when responding to cybersecurity incidents and protecting critical infrastructure.
 
-🌟 My Cybersecurity Journey
-My path in cybersecurity is a continuous learning process. It started with curiosity and evolved into a deep passion. From understanding the basics of network security to advanced threat intelligence, I have explored various aspects of cybersecurity and developed a strong foundation in the tools and techniques used by SOC teams today. Here’s a quick glance at my core expertise:
-
-SIEM Expertise: Splunk, IBM QRadar
+My Key Areas of Expertise:
+SIEM Mastery: Splunk, IBM QRadar, and SentinelOne
 Endpoint Security: CrowdStrike, SentinelOne
-Network Defense: Fortinet NextGen Firewalls
+Firewall Management: Fortinet NextGen Firewalls
 Vulnerability Management: Nessus, Tenable.io
-Web Application Security: Acunetix
-Incident Response: Real-world SOC experience
-Threat Intelligence & OSINT: Proofpoint, Wireshark
-Learn More About My Skills
+Incident Response: Acunetix, TheHive
+Threat Intelligence & OSINT: Proofpoint, Wireshark, and more!
+Hands-on Experience & Continuous Learning
+Currently, I’m involved in a 30-Day MYDFIR SOC Analyst Challenge, where I’m sharpening my skills by setting up environments, managing Elastic Agent and Fleet Server, and configuring Windows Server environments. Every new task brings practical, real-world experience that I’m excited to bring to the table in any SOC environment.
 
-🚀 Current Projects & Challenges
-I believe in learning by doing, and I’m currently deep in a 30-Day MYDFIR SOC Analyst Challenge, pushing my skills to the next level. From configuring Windows Server environments to mastering Elastic Agent and Fleet Server setups, each day brings a new challenge and valuable hands-on experience.
-Follow along as I share insights and key takeaways from this challenge:
+Some recent milestones I’m proud of include:
 
-Day 7: Successfully installed Elastic Agent on my Windows Server and enrolled it into the Fleet.
-Day 6: Set up Elastic Agent and Fleet Server, learning about their critical roles in endpoint management.
-Day 5: Installed and configured Windows Server 2022—vital for SOC environments.
-...and much more.
-Check Out My Full Challenge Journey
+Setting up Elastic Agent on my Windows Server and successfully enrolling it into Fleet.
+Configuring Fleet Server to manage and monitor endpoints effectively.
+Installing and managing Windows Server 2022, critical for SOC environments.
+Why I Love Cybersecurity
+In a world where data is more valuable than ever, securing it is not just a job—it’s my passion. Every incident I investigate, every attack I help mitigate, brings a sense of fulfillment that drives me forward. Whether it's detecting a phishing attempt or stopping a brute force attack, I find meaning in every challenge.
 
-🎓 Certifications & Learning
-I believe in being a lifelong learner, especially in an industry that evolves as fast as cybersecurity. My certifications are a reflection of my commitment to staying sharp:
+Cybersecurity isn’t just what I do—it’s who I am. My mission is to contribute to a safer digital future, and I’m eager to bring that commitment and my expertise to your organization.
 
-CompTIA Security+
-Fortinet Certified Associate
-Kali Linux, Wireshark, OSINT Tools
-Microsoft Azure & Sentinel SIEM
-View All Certifications
+Ready to Make a Difference
+If you’re looking for someone with the skills, motivation, military discipline, and passion to help protect your organization, I’d love to chat! Let’s build a safer digital world together.
 
-💡 Why Cybersecurity?
-In a world where data is more valuable than ever, the importance of securing it cannot be overstated. I entered cybersecurity because of its blend of complexity, critical thinking, and real-world impact. Whether it’s stopping a potential breach, securing a network, or detecting a threat before it happens, I find meaning and excitement in every challenge.
-
-Cybersecurity is not just my career—it’s my passion, my commitment, and my purpose. My goal is to contribute to a safer digital future, one secure system at a time.
-
-📚 Content, Articles, and Resources
-I also enjoy sharing what I’ve learned. You’ll find posts about recent developments in the cybersecurity world, deep dives into tools I’ve mastered, and guides on everything from SIEM tools to penetration testing techniques.
-
-Latest Blog Post: Detecting Threats with Splunk: A Beginner's Guide
